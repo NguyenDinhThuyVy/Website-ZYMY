@@ -9,16 +9,15 @@ import 'swiper/css/navigation'
 import SwiperItemTop from '../SwiperItemTop'
 
 import { AxiosResponse } from 'axios'
-// import { ProductList } from 'src/types/product.type'
+import { ProductList } from 'src/types/product.type'
 import { SuccessResponse } from 'src/types/utils.type'
 
-// interface AppProps {}
+interface AppProps {}
 interface Props {
-  data?: AxiosResponse<SuccessResponse<any>, any> | undefined
-  setListItem: (value: React.SetStateAction<never[]>) => void
+  data?: AxiosResponse<SuccessResponse<ProductList>, any> | undefined
 }
-function ItemTop({ data }: Props) {
-  const [listItem, setListItem] = useState([])
+function ItemTop({ data }: Props): FC<AppProps> {
+  const [listItem, setListItem] = useState({})
   const fectchBannerItem = async () => {
     if (data) {
       setListItem(data?.data.data.products)
@@ -27,6 +26,7 @@ function ItemTop({ data }: Props) {
   useEffect(() => {
     fectchBannerItem()
   }, [])
+  console.log(listItem)
   return (
     <Swiper
       slidesPerView={6}

@@ -186,7 +186,7 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
       <div className='bg-gray-300 h-[1px] my-4' />
       <Button
         onClick={handleRemoveAll}
-        className=' w-full p-2 uppercase bg-gradient-to-b from-yellow to-rose-400 text-white text-sm hover:opacity-70 flex justify-center items-center'
+        className='flex w-full items-center justify-center bg-orange p-2 text-sm uppercase text-white hover:bg-orange/80'
       >
         Xóa tất cả
       </Button>

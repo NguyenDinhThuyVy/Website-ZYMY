@@ -9,16 +9,27 @@ import 'swiper/css/navigation'
 import SwiperItemTop from '../SwiperItemTop'
 
 import { AxiosResponse } from 'axios'
-// import { ProductList } from 'src/types/product.type'
+import { ProductList, ProductListConfig } from 'src/types/product.type'
 import { SuccessResponse } from 'src/types/utils.type'
+import { useQuery } from 'react-query'
+import productApi from 'src/apis/product.api'
 
-// interface AppProps {}
+interface AppProps {}
 interface Props {
-  data?: AxiosResponse<SuccessResponse<any>, any> | undefined
-  setListItem: (value: React.SetStateAction<never[]>) => void
+  data?: AxiosResponse<SuccessResponse<ProductList>, any> | undefined
 }
-function ItemTop({ data }: Props) {
-  const [listItem, setListItem] = useState([])
+export type QueryConfig = {
+  [key in keyof ProductListConfig]: string
+}
+function ItemTop({ data }: Props): FC<AppProps> {
+  const { data: productsData } = useQuery({
+    queryKey: ['products', queryConfig],
+    queryFn: () => {
+      return productApi.getProducts(queryConfig as ProductListConfig)
+    },
+    keepPreviousData: true
+  })
+  const [listItem, setListItem] = useState<productsData[]>([])
   const fectchBannerItem = async () => {
     if (data) {
       setListItem(data?.data.data.products)
@@ -27,6 +38,7 @@ function ItemTop({ data }: Props) {
   useEffect(() => {
     fectchBannerItem()
   }, [])
+  console.log(listItem)
   return (
     <Swiper
       slidesPerView={6}
