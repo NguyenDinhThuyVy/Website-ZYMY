@@ -3,7 +3,7 @@ import Button from 'src/components/Button'
 import InputNumber from 'src/components/InputNumber'
 import path from 'src/constants/path'
 import { Category } from 'src/types/category.type'
-import { QueryConfig } from '../ProductList'
+import { QueryConfig } from 'src/hooks/useQueryConfig'
 import classNames from 'classnames'
 import { useForm, Controller } from 'react-hook-form'
 import { Schema, schema } from 'src/utils/rules'
@@ -11,6 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { NoUndefinedField } from 'src/types/utils.type'
 import RatingStars from '../RatingStars'
 import { omit } from 'lodash'
+import { ObjectSchema } from 'yup'
 interface Props {
   queryConfig: QueryConfig
   categories: Category[]
@@ -23,12 +24,6 @@ type FormData = NoUndefinedField<Pick<Schema, 'price_max' | 'price_min'>>
  */
 
 const priceSchema = schema.pick(['price_min', 'price_max'])
-const handleRemoveAll = () => {
-  navigate({
-    pathname: path.home,
-    search: createSearchParams(omit(queryConfig, ['price_min', 'price_max', 'rating_filter', 'category'])).toString()
-  })
-}
 
 export default function AsideFilter({ queryConfig, categories }: Props) {
   const { category } = queryConfig
@@ -42,7 +37,7 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
       price_min: '',
       price_max: ''
     },
-    resolver: yupResolver(priceSchema)
+    resolver: yupResolver<FormData>(priceSchema as ObjectSchema<FormData>)
   })
   const navigate = useNavigate()
   const onSubmit = handleSubmit((data) => {
@@ -55,6 +50,13 @@ export default function AsideFilter({ queryConfig, categories }: Props) {
       }).toString()
     })
   })
+  const handleRemoveAll = () => {
+    navigate({
+      pathname: path.home,
+      search: createSearchParams(omit(queryConfig, ['price_min', 'price_max', 'rating_filter', 'category'])).toString()
+    })
+  }
+
   return (
     <div className='py-4'>
       <Link

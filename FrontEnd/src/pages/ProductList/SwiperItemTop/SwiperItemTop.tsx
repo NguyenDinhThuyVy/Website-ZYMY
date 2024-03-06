@@ -1,23 +1,23 @@
 import { Link } from 'react-router-dom'
 
 interface Props {
-  products: string
+  products: any
 }
 export default function SwiperItemTop({ products }: Props) {
   return (
     <div>
       <Link to='/' className='flex flex-col items-center gap-4'>
         <div className='relative'>
-          <img src={products.image} alt='' />
+          <img src={products?.image} alt='' />
           <div className='absolute bottom-0 w-full'>
             <div className=' bg-gray-500 text-white  w-full h-6 flex items-center justify-center opacity-50 '>
-              Đã Bán {products.view} k
+              Đã Bán {products?.view} k
             </div>
           </div>
         </div>
 
         <div className='w-full'>
-          <p className='truncate max-w-40 line-clamp-3 overflow-hidden'>{products.name}</p>
+          <p className='truncate max-w-40 line-clamp-3 overflow-hidden'>{products?.name}</p>
           {/* <p className='truncate ...'>{products.name}</p> */}
         </div>
       </Link>
