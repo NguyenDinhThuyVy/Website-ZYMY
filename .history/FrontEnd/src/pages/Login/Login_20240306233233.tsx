@@ -15,7 +15,6 @@ import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { useState, useContext } from 'react'
 import { AppContext } from 'src/contexts/app.context'
 import path from 'src/constants/path'
-
 type FormData = Pick<Schema, 'email' | 'password'>
 const loginSchema = schema.pick(['email', 'password'])
 export default function Login() {
