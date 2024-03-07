@@ -1,17 +1,14 @@
-import { useMutation, useQuery } from 'react-query'
+import { useQuery } from 'react-query'
 import DOMPurify from 'dompurify'
 import { useParams } from 'react-router-dom'
 import productApi from 'src/apis/product.api'
 import QuantityController from 'src/components/QuantityController'
+
 import ProductRating from 'src/components/ProductRating'
 import { formatCurrency, formatNumberToSocialStyle, getIdFromNameId, rateSale } from 'src/utils/utils'
 import { Popover } from 'antd'
 import { useEffect, useMemo, useState, useRef } from 'react'
 import { Product } from 'src/types/product.type'
-import purchaseApi from 'src/apis/purchase.api'
-import { toast } from 'react-toastify'
-import { purchasesStatus } from 'src/constants/purchase'
-import { queryClient } from 'src/main'
 
 const content1 = (
   <div className='w-72 h-36 px-5 py-2'>
@@ -47,8 +44,6 @@ const ProductDetail: React.FC = () => {
     () => (product ? product.images.slice(...currentIndexImages) : []),
     [product, currentIndexImages]
   )
-
-  const addToCartMutation = useMutation(purchaseApi.addToCart)
 
   useEffect(() => {
     if (product && product.images.length > 0) {
@@ -99,18 +94,6 @@ const ProductDetail: React.FC = () => {
 
   const handleBuyCount = (value: number) => {
     setBuyCount(value)
-  }
-
-  const addToCart = () => {
-    addToCartMutation.mutate(
-      { buy_count: buyCount, product_id: product?._id as string },
-      {
-        onSuccess: (data) => {
-          toast.success(data.data.message, { autoClose: 1000 })
-          queryClient.invalidateQueries({ queryKey: ['purchases', { status: purchasesStatus.inCart }] })
-        }
-      }
-    )
   }
 
   if (!product) return null
@@ -214,10 +197,7 @@ const ProductDetail: React.FC = () => {
                 <div className='ml-6 text-sm text-gray-500'>{product.quantity} sản phẩm có sẵn</div>
               </div>
               <div className='mt-8 flex items-center border-b pb-7 border-b-gray-200'>
-                <button
-                  onClick={addToCart}
-                  className='flex h-12 items-center justify-center rounded-sm border border-rose-400 bg-rose-400/10 px-5 capitalize text-rose-400 shadow-sm hover:bg-rose-400/5'
-                >
+                <button className='flex h-12 items-center justify-center rounded-sm border border-rose-400 bg-rose-400/10 px-5 capitalize text-rose-400 shadow-sm hover:bg-rose-400/5'>
                   <svg
                     enableBackground='new 0 0 15 15'
                     viewBox='0 0 15 15'

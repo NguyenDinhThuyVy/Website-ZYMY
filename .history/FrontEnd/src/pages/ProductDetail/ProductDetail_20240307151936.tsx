@@ -214,10 +214,7 @@ const ProductDetail: React.FC = () => {
                 <div className='ml-6 text-sm text-gray-500'>{product.quantity} sản phẩm có sẵn</div>
               </div>
               <div className='mt-8 flex items-center border-b pb-7 border-b-gray-200'>
-                <button
-                  onClick={addToCart}
-                  className='flex h-12 items-center justify-center rounded-sm border border-rose-400 bg-rose-400/10 px-5 capitalize text-rose-400 shadow-sm hover:bg-rose-400/5'
-                >
+                <button className='flex h-12 items-center justify-center rounded-sm border border-rose-400 bg-rose-400/10 px-5 capitalize text-rose-400 shadow-sm hover:bg-rose-400/5'>
                   <svg
                     enableBackground='new 0 0 15 15'
                     viewBox='0 0 15 15'

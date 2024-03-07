@@ -2,7 +2,7 @@ import Popover from '../Popover/Popover'
 import authApi from 'src/apis/auth.api'
 import { AppContext } from 'src/contexts/app.context'
 import { useMutation, useQuery } from 'react-query'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { FaFacebook, FaInstagramSquare } from 'react-icons/fa'
 import path from 'src/constants/path'
 import { createSearchParams, Link, useNavigate } from 'react-router-dom'
@@ -249,8 +249,8 @@ export default function Header() {
           <div className='cols-span-1 justify-self-end'>
             <Popover
               renderPopover={
-                <div className='relative max-w-[400px] rounded-sm border border-gray-200 bg-white text-sm shadow-md'>
-                  {purchasesInCart ? (
+                <div className='bg-white relative shadow-md rounded-sm border border-gray-200 max-w-[400px] text-sm'>
+                   {purchasesInCart ? (
                     <div className='p-2'>
                       <div className='capitalize text-gray-400'>Sản phẩm mới thêm</div>
                       <div className='mt-5'>
@@ -270,35 +270,28 @@ export default function Header() {
                               <span className='text-orange'>₫{formatCurrency(purchase.product.price)}</span>
                             </div>
                           </div>
-                        ))}
-                      </div>
-                      <div className='mt-6 flex items-center justify-between'>
-                        <div className='text-xs capitalize text-gray-500'>
-                          {purchasesInCart.length > MAX_PURCHASES ? purchasesInCart.length - MAX_PURCHASES : ''} Thêm
-                          hàng vào giỏ
-                        </div>
-                        <button className='rounded-sm bg-rose-500 px-4 py-2 capitalize text-white hover:bg-opacity-90'>
-                          Xem giỏ hàng
-                        </button>
-                      </div>
+                           ))}
+                           </div>
+
+
+                    <div className='flex mt-6 items-center justify-between'>
+                      <div className='capitalize text-xs text-gray-400'>Thêm hàng vào giỏ</div>
+                      <button className='capitalize bg-rose-500 hover:bg-opacity-90 px-4 py-2 rounded-lg text-white'>
+                        Xem giỏ hàng
+                      </button>
                     </div>
-                  ) : (
-                    <div className='flex h-[300px] w-[300px] items-center justify-center p-2'>
-                      <img src={noproduct} alt='no purchase' className='h-24 w-24' />
-                      <div className='mt-3 capitalize'>Chưa có sản phẩm</div>
-                    </div>
-                  )}
+                  </div>
                 </div>
               }
             >
-              <Link to='/' className='relative'>
+              <Link to='/'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'
                   viewBox='0 0 24 24'
                   strokeWidth={1.5}
                   stroke='currentColor'
-                  className='h-8 w-8'
+                  className='w-8 h-8'
                 >
                   <path
                     strokeLinecap='round'
@@ -306,9 +299,6 @@ export default function Header() {
                     d='M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z'
                   />
                 </svg>
-                <span className='absolute top-[-5px] left-[17px] rounded-full bg-white px-[9px] py-[1px] text-xs text-rose-500 '>
-                  {purchasesInCart?.length}
-                </span>
               </Link>
             </Popover>
           </div>

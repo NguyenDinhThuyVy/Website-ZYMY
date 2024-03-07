@@ -79,6 +79,7 @@ export default function UseRouterElement() {
     },
     {
       path: path.productDetail,
+
       element: (
         <MainLayout>
           <ProductDetail />

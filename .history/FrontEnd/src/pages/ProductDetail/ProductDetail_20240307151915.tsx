@@ -101,18 +101,6 @@ const ProductDetail: React.FC = () => {
     setBuyCount(value)
   }
 
-  const addToCart = () => {
-    addToCartMutation.mutate(
-      { buy_count: buyCount, product_id: product?._id as string },
-      {
-        onSuccess: (data) => {
-          toast.success(data.data.message, { autoClose: 1000 })
-          queryClient.invalidateQueries({ queryKey: ['purchases', { status: purchasesStatus.inCart }] })
-        }
-      }
-    )
-  }
-
   if (!product) return null
   return (
     <div className='bg-gray-200 pt-10'>
@@ -214,10 +202,7 @@ const ProductDetail: React.FC = () => {
                 <div className='ml-6 text-sm text-gray-500'>{product.quantity} sản phẩm có sẵn</div>
               </div>
               <div className='mt-8 flex items-center border-b pb-7 border-b-gray-200'>
-                <button
-                  onClick={addToCart}
-                  className='flex h-12 items-center justify-center rounded-sm border border-rose-400 bg-rose-400/10 px-5 capitalize text-rose-400 shadow-sm hover:bg-rose-400/5'
-                >
+                <button className='flex h-12 items-center justify-center rounded-sm border border-rose-400 bg-rose-400/10 px-5 capitalize text-rose-400 shadow-sm hover:bg-rose-400/5'>
                   <svg
                     enableBackground='new 0 0 15 15'
                     viewBox='0 0 15 15'
