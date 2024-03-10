@@ -1,0 +1,28 @@
+import { useRecoilState } from 'recoil'
+import { activeNavItemState } from 'src/atoms/ActiveNavBarAtom'
+
+interface Link {
+  id: number
+  title: string
+  icon: JSX.Element
+  link: string
+}
+interface NavItemProps {
+  data: Link
+}
+const NavItem: React.FC<NavItemProps> = ({ data }) => {
+  const [activeNav, setActiveNav] = useRecoilState(activeNavItemState)
+  return (
+    <div
+      onClick={() => setActiveNav(link.id)}
+      className={`w-full flex items-center justify-start space-x-8 px-5 cursor-pointer
+       group hover:border-gray-900 border-l-4 border-transparent ${activeNav === link.id && 'border-gray-900 '} `}
+    >
+      <span> {link.icon}</span>
+      <h1 className={`text-gray-600 group-hover:text-black xl:flex hidden ${activeNav === link.id && 'text-black '}} `}>
+        {link.title}
+      </h1>
+    </div>
+  )
+}
+export default NavItem
