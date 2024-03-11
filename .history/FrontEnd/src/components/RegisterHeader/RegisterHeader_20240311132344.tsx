@@ -11,7 +11,7 @@ export default function RegisterHeader() {
           <div className='flex justify-between items-center'>
             <Link to='/' className='col-span-2 ml-3'>
               <div className='flex text-4xl items-center justify-items-center  font-extrabold'>
-                <img src={logo} alt='' className='w-12 h-12 items-center justify-items-center mr-2 rounded-full ' />
+                <img src='logo.png' alt='' className='w-12 h-12 items-center justify-items-center mr-2 rounded-full ' />
                 <span className='text-[#fcc0cdff]'>ZY</span>
                 <span className='text-[#f54290ff]'>MY </span>
               </div>

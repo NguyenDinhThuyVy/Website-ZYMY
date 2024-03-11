@@ -70,28 +70,24 @@ export default function Register() {
                   placeholder='Email'
                 />
 
-                <div className='relative w-full'>
-                  <Input
-                    autoComplete='on'
-                    name='password'
-                    className='mt-2'
-                    register={register}
-                    type='password'
-                    placeholder='PassWord'
-                    errorMessage={errors.password?.message}
-                  />
-                </div>
-                <div className='relative w-full'>
-                  <Input
-                    name='confirm_password'
-                    register={register}
-                    type='password'
-                    className='mt-2'
-                    errorMessage={errors.confirm_password?.message}
-                    placeholder='Confirm Password'
-                    autoComplete='on'
-                  />
-                </div>
+                <Input
+                  name='password'
+                  register={register}
+                  type='password'
+                  className='mt-2'
+                  errorMessage={errors.password?.message}
+                  placeholder='Password'
+                  autoComplete='on'
+                />
+                <Input
+                  name='confirm_password'
+                  register={register}
+                  type='password'
+                  className='mt-2'
+                  errorMessage={errors.confirm_password?.message}
+                  placeholder='Confirm Password'
+                  autoComplete='on'
+                />
                 <div className='mt-2'>
                   <button className='w-full text-center py-4 px-2 uppercase rounded bg-rose-500 text-white text-sm hover:bg-rose-400'>
                     Đăng ký
