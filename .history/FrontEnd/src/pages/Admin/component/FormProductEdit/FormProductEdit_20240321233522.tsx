@@ -1,0 +1,289 @@
+import React, { useState, useEffect } from 'react'
+import { Form, Input, Modal, Select, Upload } from 'antd'
+
+import adminApi from 'src/apis/admin.api'
+import { toast } from 'react-toastify'
+import useQueryConfig from 'src/hooks/useQueryConfig'
+import { useMutation, useQuery } from 'react-query'
+
+import { getAvatarUrl } from 'src/utils/utils'
+
+const formItemLayout = {
+  labelCol: {
+    xs: { span: 24 },
+    sm: { span: 6 }
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 14 }
+  }
+}
+
+interface CollectionCreateFormProps {
+  productId: string
+
+  onClose: () => void
+  onUpdateSuccess: () => void
+}
+
+const FormProductEdit: React.FC<CollectionCreateFormProps> = ({ productId, onClose, onUpdateSuccess }) => {
+  const [form] = Form.useForm()
+
+  const [productData, setProductData] = useState<any>(null)
+  const [initialFileList, setInitialFileList] = useState<any[]>([])
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const productDataResponse = await adminApi.getProduct([productId]) // Thay đổi thành getUserById
+        setProductData(productDataResponse.data)
+        form.setFieldsValue(productDataResponse.data.data) // Thiết lập giá trị mặc định cho các trường
+      } catch (error) {
+        console.error('Error fetching user data:', error)
+      }
+    }
+
+    if (productId) {
+      fetchUserData()
+    }
+  }, [productId, form]) // Thêm form vào dependencies
+
+  const handleSave = async () => {
+    try {
+      const values = await form.validateFields()
+
+      await adminApi.updateProduct([productId], values)
+      toast.success('Chỉnh sửa sản phẩm thành công', {
+        position: toast.POSITION.TOP_RIGHT, // Vị trí hiển thị thông báo
+        autoClose: 1200 // Thời gian tự động đóng thông báo sau 2000 mili giây (2 giây)
+      })
+      onUpdateSuccess() // Notify update success
+      onClose()
+    } catch (error) {
+      toast.error('Chỉnh sửa sản phẩm  thất bại', {
+        position: toast.POSITION.TOP_RIGHT, // Vị trí hiển thị thông báo
+        autoClose: 1200 // Thời gian tự động đóng thông báo sau 2000 mili giây (2 giây)
+      })
+    }
+  }
+
+  const queryConfig = useQueryConfig()
+  const { data: categoriesData } = useQuery({
+    queryKey: ['categories', queryConfig],
+    queryFn: () => {
+      return adminApi.getcategories()
+    }
+  })
+  const uploadImageMutaion = useMutation(adminApi.uploadImage)
+  const uploadImagesMutaion = useMutation(adminApi.uploadImages)
+  // console.log(categoriesData)
+  const image = productData?.data.image
+  const handleUploadChange = async (info: any) => {
+    const formData = new FormData()
+    formData.append('image', info.file.originFileObj || '')
+    const uploadRes = await uploadImageMutaion.mutateAsync(formData)
+    console.log('hihi')
+    form.setFieldsValue({
+      image: uploadRes.data.data // Sử dụng đường dẫn của ảnh từ dữ liệu phản hồi
+    })
+    setProductData((prevProductData) => ({
+      ...prevProductData,
+      data: {
+        ...prevProductData.data,
+        image: getAvatarUrl(uploadRes.data.data)
+      }
+    }))
+  }
+  const handleUploadChange1 = async (info: any) => {
+    const formData = new FormData()
+    formData.append('image', info.file.originFileObj || '')
+    const uploadRes = await uploadImagesMutaion.mutateAsync(formData)
+    console.log('hihi')
+    form.setFieldsValue({
+      images: productData?.data.images.map((image, index) => {
+        // Kiểm tra nếu index trùng với indexToRemove, thì sử dụng đường dẫn mới từ uploadRes
+        if (index && uploadRes && uploadRes.data && uploadRes.data.data) {
+          return uploadRes.data.data // Sử dụng đường dẫn của ảnh từ dữ liệu phản hồi
+        } else {
+          return image // Giữ nguyên đường dẫn ảnh hiện tại
+        }
+      })
+    })
+    setProductData((prevProductData) => ({
+      ...prevProductData,
+      data: {
+        ...prevProductData.data,
+        images: prevProductData.data.images.map((image) => getAvatarUrl(image))
+      }
+    }))
+  }
+
+  const customRequest = async ({ file, onSuccess, onError }: any) => {
+    const token = localStorage.getItem('profile')
+    const formData = new FormData()
+    formData.append('file', file)
+
+    try {
+      const response = await fetch('http://localhost:4000/admin/products/upload-image', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        body: formData
+      })
+
+      if (!response.ok) {
+        throw new Error('Upload failed')
+      }
+
+      const responseData = await response.json()
+      onSuccess(responseData, file)
+    } catch (error) {
+      onError(error)
+    }
+  }
+
+  const customRequest1 = async ({ file, onSuccess, onError }: any) => {
+    const token = localStorage.getItem('profile')
+    const formData = new FormData()
+    formData.append('file', file)
+
+    try {
+      const response = await fetch('http://localhost:4000/admin/products/upload-images', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        body: formData
+      })
+
+      if (!response.ok) {
+        throw new Error('Upload failed')
+      }
+
+      const responseData = await response.json()
+      onSuccess(responseData, file)
+    } catch (error) {
+      onError(error)
+    }
+  }
+  const convertUrlsToFileList = (urls: string[]): { uid: string; name: string; url: string }[] => {
+    return urls.map((url, index) => ({
+      uid: `-${index}`,
+      name: `image-${index}.png`,
+      url
+    }))
+  }
+
+  const images = productData?.data.images
+  useEffect(() => {
+    if (images) {
+      const fileList = convertUrlsToFileList(productData?.data.images)
+      setInitialFileList(fileList) // Cập nhật initialFileList
+    }
+  }, [productData])
+  console.log(initialFileList)
+  const updateImagesArray = (images: (string | null)[], indexToRemove: number): (string | null)[] => {
+    return images.map((image, index) => (index === indexToRemove ? null : image))
+  }
+  const ImagesArray = (images: (string | null)[], indexToRemove: number, a: any): (string | null)[] => {
+    return images.map((image, index) => (index === indexToRemove ? a : image))
+  }
+  return (
+    <Modal
+      open
+      width={1200}
+      title='Edit Product'
+      onCancel={onClose}
+      onOk={handleSave}
+      destroyOnClose
+      okText='Save'
+      cancelText='Cancel'
+    >
+      <Form {...formItemLayout} form={form} initialValues={productData}>
+        <div className='grid grid-cols-2 grid-flow-row  w-full'>
+          <Form.Item label='Tên sản phẩm' name='name'>
+            <Input />
+          </Form.Item>
+          <Form.Item label='Giá hiện tại' name='price'>
+            <Input />
+          </Form.Item>
+        </div>
+        <div className='grid grid-cols-2 grid-flow-row  w-full'>
+          <Form.Item label='Số lượng' name='quantity'>
+            <Input />
+          </Form.Item>
+          <Form.Item label='Danh mục' name={['category', 'name']}>
+            <Select style={{ width: 340 }}>
+              {categoriesData?.data.data.map((category) => (
+                <Select.Option key={category._id} value={category.name}>
+                  {category.name}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+        </div>
+        <div className='grid grid-cols-2 grid-flow-row  w-full'>
+          <Form.Item label='Ảnh chính' name='image' initialValue={image}>
+            <Upload
+              action='http://localhost:4000/admin/products/upload-image'
+              customRequest={customRequest} // Sử dụng customRequest để tải ảnh lên
+              listType='picture-card'
+              maxCount={1}
+              fileList={image ? [{ uid: '-1', name: 'image.png', url: image }] : []}
+              onRemove={() => {
+                // Xóa ảnh khỏi fileList khi người dùng nhấn nút xóa
+                setProductData((prevProductData) => ({
+                  ...prevProductData,
+                  data: {
+                    ...prevProductData.data,
+                    image: null
+                  }
+                }))
+              }}
+              onChange={handleUploadChange}
+            >
+              {image ? null : <div>Upload</div>}
+            </Upload>
+          </Form.Item>
+
+          <Form.Item label='Ảnh minh họa' name='images'>
+            <Upload
+              action='http://localhost:4000/admin/products/upload-images'
+              customRequest={customRequest1}
+              fileList={images ? initialFileList : []}
+              listType='picture-card'
+              maxCount={5} // Số lượng tối đa ảnh minh họa
+              onRemove={(file) => {
+                const indexToRemove = initialFileList.findIndex((item) => item.uid === file.uid)
+                if (indexToRemove !== -1) {
+                  setProductData((prevProductData) => ({
+                    ...prevProductData,
+                    data: {
+                      ...prevProductData.data,
+                      images: updateImagesArray(productData?.data.images, indexToRemove)
+                    }
+                  }))
+                }
+              }}
+              onChange={handleUploadChange1}
+            >
+              {(productData?.data.images ?? []).map((image, index) =>
+                // Nếu giá trị của phần tử là null, hiển thị nút "Upload", ngược lại hiển thị ảnh
+                {
+                  image ? null : <div>Upload</div>
+                }
+              )}
+            </Upload>
+          </Form.Item>
+        </div>
+
+        <Form.Item label='Mô tả sản phẩm' name='description' className='w-96'>
+          <Input.TextArea style={{ width: '1300px' }} />
+        </Form.Item>
+      </Form>
+    </Modal>
+  )
+}
+
+export default FormProductEdit
