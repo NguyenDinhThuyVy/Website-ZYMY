@@ -12,6 +12,15 @@ export interface Purchase {
   status: PurchaseStatus
   user: string
   product: Product
+  shippingAddress: [
+    {
+      street: string
+      city: string
+      postalCode: string
+      phone: string
+      paymentMethod: string
+    }
+  ]
   createdAt: string
   updatedAt: string
 }

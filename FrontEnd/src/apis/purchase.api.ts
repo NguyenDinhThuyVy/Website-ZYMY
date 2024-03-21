@@ -23,6 +23,12 @@ const purchaseApi = {
     return http.delete<SuccessResponse<{ deleted_count: number }>>(`${URL}`, {
       data: purchaseIds
     })
+  },
+  shippingAddress(
+    purchaseIds: string[],
+    body: { street: string; city: string; postalCode: string; phone: string; paymentMethod: string }
+  ) {
+    return http.post<SuccessResponse<Purchase>>(`${URL}/address/${purchaseIds}`, body)
   }
 }
 

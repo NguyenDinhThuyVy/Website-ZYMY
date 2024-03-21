@@ -13,6 +13,8 @@ import ProductDetail from './pages/ProductDetail'
 import ProductSearch from './pages/ProductList/ProductSearch'
 import Cart from './pages/Cart'
 import CartLayout from './layouts/CartLayout'
+import PaymentLayout from './layouts/PaymentLayout'
+import Payment from './pages/Payment'
 
 import UserLayout from './pages/User/layouts/UserLayout'
 
@@ -26,6 +28,7 @@ import Accounts from './pages/Admin/pages/Accounts'
 import Products from './pages/Admin/pages/Products'
 import Orders from './pages/Admin/pages/Orders'
 import ProductCategory from './pages/ProductList/ProductCategory'
+
 // import FormAccountEdit from './pages/Admin/component/FormAccountEdit'
 
 function ProtectedRoute() {
@@ -144,6 +147,14 @@ export default function UseRouterElement() {
         <CartLayout>
           <Cart />
         </CartLayout>
+      )
+    },
+    {
+      path: path.payment,
+      element: (
+        <PaymentLayout>
+          <Payment />
+        </PaymentLayout>
       )
     },
     {
