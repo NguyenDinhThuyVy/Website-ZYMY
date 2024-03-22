@@ -36,7 +36,7 @@ adminUserRouter.get(
   authMiddleware.verifyAdmin,
   helpersMiddleware.idRule('user_id'),
   helpersMiddleware.idValidator,
-  wrapAsync(userController.deleteUser)
+  wrapAsync(userController.getUser)
 )
 adminUserRouter.delete(
   '/delete/:user_id',

@@ -71,9 +71,9 @@ const forgottenPassword = async (
       subject: 'NDTV - Xác thực tài khoản',
       text: `
               NDTV
-
-              Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi,
-
+                          
+              Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi, 
+          
               Chúng tôi xin gửi mật khẩu của bạn là: ${newPassword}
               `,
     }

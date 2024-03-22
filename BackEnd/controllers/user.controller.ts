@@ -99,12 +99,12 @@ const getUser = async (req: Request, res: Response) => {
 
 const updateUser = async (req: Request, res: Response) => {
   const form: User = req.body
-  const { password, addresses, date_of_birth, name, phone, roles, avatar } =
+  const { password, address, date_of_birth, name, phone, roles, avatar } =
     form
   const user = omitBy(
     {
       password,
-      addresses,
+      address,
       date_of_birth,
       name,
       phone,
@@ -144,7 +144,7 @@ const updateMe = async (req: Request, res: Response) => {
     email,
     password,
     new_password,
-    addresses,
+    address,
     date_of_birth,
     name,
     phone,
@@ -154,7 +154,7 @@ const updateMe = async (req: Request, res: Response) => {
     {
       email,
       password,
-      addresses,
+      address,
       date_of_birth,
       name,
       phone,

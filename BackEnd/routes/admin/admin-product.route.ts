@@ -71,15 +71,6 @@ adminProductRouter.delete(
   wrapAsync(ProductController.deleteQuantityProducts)
 )
 
-adminProductRouter.delete(
-  '/delete/:product_id',
-  authMiddleware.verifyAccessToken,
-  authMiddleware.verifyAdmin,
-  helpersMiddleware.idRule('product_id'),
-  helpersMiddleware.idValidator,
-  wrapAsync(ProductController.deleteProduct)
-)
-
 adminProductRouter.post(
   '/upload-image',
   authMiddleware.verifyAccessToken,

@@ -328,7 +328,6 @@ const ProductController = {
   getProducts,
   getProduct,
   updateProduct,
-  deleteProduct,
   searchProduct,
   deleteQuantityProducts,
   uploadProductImage,
