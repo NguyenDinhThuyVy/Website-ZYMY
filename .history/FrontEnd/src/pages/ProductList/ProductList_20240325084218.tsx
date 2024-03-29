@@ -120,7 +120,7 @@ export default function ProductList() {
               }).toString()
             }}
           >
-            <ItemCategory img='giay.png' name='Giày Dép Nữ'></ItemCategory>
+            <ItemCategory img='giay.png' name='Son'></ItemCategory>
           </Link>
           <Link
             to={{
@@ -131,7 +131,7 @@ export default function ProductList() {
               }).toString()
             }}
           >
-            <ItemCategory img='son.png' name='Son'></ItemCategory>
+            <ItemCategory img='son.png' name='Giày Dép Nữ'></ItemCategory>
           </Link>
           <Link
             to={{

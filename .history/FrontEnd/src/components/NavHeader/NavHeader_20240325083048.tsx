@@ -37,7 +37,7 @@ export default function NavHeader() {
       <div className='flex justify-start gap-1 divide-x-2 divide-slate-300/20'>
         {profile?.roles.includes('Admin') ? (
           <div className='flex items-center py-1 hover:text-gray-200 cursor-pointer'>
-            <Link to={path.accounts}>
+            <Link to={path.account}>
               <span className='px-3'> {t('manage')}</span>
             </Link>
           </div>

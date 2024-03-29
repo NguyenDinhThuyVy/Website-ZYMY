@@ -105,7 +105,7 @@ export default function ProductList() {
               pathname: path.productCategory,
               search: createSearchParams({
                 ...queryConfig,
-                category: '65ef3b9c04766a6306cc63b3'
+                category: '65ef3b9c04766a6306cc63b6'
               }).toString()
             }}
           >
@@ -116,11 +116,11 @@ export default function ProductList() {
               pathname: path.productCategory,
               search: createSearchParams({
                 ...queryConfig,
-                category: '65ef3bb004766a6306cc63b6'
+                category: '65ef3bb004766a6306cc63b7'
               }).toString()
             }}
           >
-            <ItemCategory img='giay.png' name='Giày Dép Nữ'></ItemCategory>
+            <ItemCategory img='son.png' name='Son'></ItemCategory>
           </Link>
           <Link
             to={{
@@ -131,7 +131,7 @@ export default function ProductList() {
               }).toString()
             }}
           >
-            <ItemCategory img='son.png' name='Son'></ItemCategory>
+            <ItemCategory img='giay.png' name='Giày Dép Nữ'></ItemCategory>
           </Link>
           <Link
             to={{

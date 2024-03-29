@@ -105,7 +105,7 @@ export default function ProductList() {
               pathname: path.productCategory,
               search: createSearchParams({
                 ...queryConfig,
-                category: '65ef3b9c04766a6306cc63b3'
+                category: '65ef3b9c04766a6306cc63b6'
               }).toString()
             }}
           >
@@ -116,18 +116,7 @@ export default function ProductList() {
               pathname: path.productCategory,
               search: createSearchParams({
                 ...queryConfig,
-                category: '65ef3bb004766a6306cc63b6'
-              }).toString()
-            }}
-          >
-            <ItemCategory img='giay.png' name='Giày Dép Nữ'></ItemCategory>
-          </Link>
-          <Link
-            to={{
-              pathname: path.productCategory,
-              search: createSearchParams({
-                ...queryConfig,
-                category: '65ef3bde04766a6306cc63b9'
+                category: '65ef3bb004766a6306cc63b7'
               }).toString()
             }}
           >
@@ -138,7 +127,18 @@ export default function ProductList() {
               pathname: path.productCategory,
               search: createSearchParams({
                 ...queryConfig,
-                category: '65ef3bb004766a6306cc63b7'
+                category: '65ef3bde04766a6306cc63b9'
+              }).toString()
+            }}
+          >
+            <ItemCategory img='giay.png' name='Giày Dép Nữ'></ItemCategory>
+          </Link>
+          <Link
+            to={{
+              pathname: path.productCategory,
+              search: createSearchParams({
+                ...queryConfig,
+                category: '65ef3bb004766a6306cc63b9'
               }).toString()
             }}
           >

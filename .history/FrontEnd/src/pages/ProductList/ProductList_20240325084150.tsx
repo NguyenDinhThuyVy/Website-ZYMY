@@ -120,7 +120,7 @@ export default function ProductList() {
               }).toString()
             }}
           >
-            <ItemCategory img='giay.png' name='Giày Dép Nữ'></ItemCategory>
+            <ItemCategory img='son.png' name='Giày Dép Nữ'></ItemCategory>
           </Link>
           <Link
             to={{
