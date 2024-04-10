@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Form, Input, Modal, ConfigProvider, Select, InputNumber, type FormInstance } from 'antd'
-
+import Uploadmain from '../Uploadmain'
 import Uploadimgs from '../Upload'
 import adminApi from 'src/apis/admin.api'
 import { useQuery } from 'react-query'
 import useQueryConfig from 'src/hooks/useQueryConfig'
 import { Product } from 'src/types/product.type'
-import Uploadmain from '../Upload/Uploadmain'
 
 const formItemLayout = {
   labelCol: {
@@ -31,7 +30,7 @@ interface CollectionCreateFormProps {
   onCreated: () => void // Thêm prop onCreated vào interface
 }
 
-const CollectionCreateForm: React.FC<CollectionCreateFormProps> = ({ onFormInstanceReady }) => {
+const CollectionCreateForm: React.FC<CollectionCreateFormProps> = ({ onFormInstanceReady, onImageDataReceived }) => {
   const [form] = Form.useForm()
 
   useEffect(() => {
@@ -155,8 +154,6 @@ const CollectionCreateFormModal: React.FC<CollectionCreateFormModalProps> = ({
         onFormInstanceReady={(instance) => {
           setFormInstance(instance)
         }}
-        onImageDataReceived={() => {}}
-        onCreated={() => {}}
       />
     </Modal>
   )
@@ -172,7 +169,6 @@ const FristForm: React.FC<CollectionCreateFormProps> = ({ onCreated }) => {
     setOpen(false)
     onCreated()
   }
-  console.log(formValues)
 
   return (
     <>
@@ -186,7 +182,7 @@ const FristForm: React.FC<CollectionCreateFormProps> = ({ onCreated }) => {
           }
         }}
       >
-        <Button type='primary' onClick={() => setOpen(true)} className='w-32 bg-[#1CA7EC]'>
+        <Button type='primary' onClick={() => setOpen(true)} className='w-32 bg-rose-300'>
           Add Product
         </Button>
       </ConfigProvider>

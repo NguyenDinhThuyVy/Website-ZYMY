@@ -17,7 +17,6 @@ function Products() {
 
   useEffect(() => {
     if (shouldRefetch) {
-      console.log(products)
       fetchData()
       setShouldRefetch(false) // Đặt shouldRefetch lại sau khi fetchData đã được gọi
     }
@@ -28,12 +27,7 @@ function Products() {
   console.log(shouldRefetch)
   return (
     <div className='flex flex-col mt-10 gap-2'>
-      <FirstForm
-        initialValues={{}}
-        onFormInstanceReady={() => {}}
-        onImageDataReceived={() => {}}
-        onCreated={handleCreatSuccess}
-      ></FirstForm>
+      <FirstForm onCreated={handleCreatSuccess}></FirstForm>
       <TableData shouldRefetch={shouldRefetch} />
     </div>
   )

@@ -8,7 +8,7 @@ export interface Order {
   price_before_discount: number
   status: number
   user: User[]
-  product: Product
+  product: Product[]
   shippingAddress: Address[]
 }
 interface Address {

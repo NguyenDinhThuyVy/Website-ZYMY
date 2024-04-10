@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Form, Input, Modal, ConfigProvider, Select, InputNumber, type FormInstance } from 'antd'
-
+import Uploadmain from '../Uploadmain'
 import Uploadimgs from '../Upload'
 import adminApi from 'src/apis/admin.api'
 import { useQuery } from 'react-query'
 import useQueryConfig from 'src/hooks/useQueryConfig'
 import { Product } from 'src/types/product.type'
-import Uploadmain from '../Upload/Uploadmain'
 
 const formItemLayout = {
   labelCol: {

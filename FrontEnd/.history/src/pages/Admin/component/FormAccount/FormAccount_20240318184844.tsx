@@ -63,7 +63,7 @@ function FormAccount() {
     {
       title: 'Action',
       key: 'action',
-      render: (record) => (
+      render: (text, record) => (
         <Space size='middle'>
           <button
             onClick={() => handleDelete(record._id)}

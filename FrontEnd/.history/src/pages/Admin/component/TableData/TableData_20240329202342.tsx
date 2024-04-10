@@ -64,7 +64,6 @@ function TableData({ shouldRefetch }: { shouldRefetch: boolean }) {
     fetchData()
   }, [ProductData])
   const handleUpdateSuccess = () => {
-    console.log(shouldRefetch)
     setShouldRefetch(true) // Trigger fetchData khi cập nhật thành công
   }
   const deleteProductMutation = useMutation({
@@ -133,7 +132,7 @@ function TableData({ shouldRefetch }: { shouldRefetch: boolean }) {
     {
       title: 'Action',
       key: 'action',
-      render: (record) => (
+      render: (text, record) => (
         <Space size='middle'>
           <button
             onClick={() => handleDelete(record._id)}

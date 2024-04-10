@@ -31,7 +31,7 @@ const FormProductEdit: React.FC<CollectionCreateFormProps> = ({ productId, onClo
 
   const [productData, setProductData] = useState<any>(null)
   const [initialCategoryValue, setInitialCategoryValue] = useState([''])
-  console.log(initialCategoryValue)
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -86,7 +86,7 @@ const FormProductEdit: React.FC<CollectionCreateFormProps> = ({ productId, onClo
     form.setFieldsValue({
       image: uploadRes.data.data // Sử dụng đường dẫn của ảnh từ dữ liệu phản hồi
     })
-    setProductData((prevProductData: any) => ({
+    setProductData((prevProductData) => ({
       ...prevProductData,
       data: {
         ...prevProductData.data,
@@ -182,7 +182,7 @@ const FormProductEdit: React.FC<CollectionCreateFormProps> = ({ productId, onClo
               fileList={image ? [{ uid: '-1', name: 'image.png', url: image }] : []}
               onRemove={() => {
                 // Xóa ảnh khỏi fileList khi người dùng nhấn nút xóa
-                setProductData((prevProductData: any) => ({
+                setProductData((prevProductData) => ({
                   ...prevProductData,
                   data: {
                     ...prevProductData.data,
@@ -199,7 +199,7 @@ const FormProductEdit: React.FC<CollectionCreateFormProps> = ({ productId, onClo
           <Form.Item label='Ảnh minh họa' name='images' initialValue={images}>
             <div className='flex flex-wrap -mx-4'>
               {images &&
-                images.map((imageUrl: any, index: any) => (
+                images.map((imageUrl, index) => (
                   <div key={index} className='w-1/4 px-4 mb-4'>
                     <Image src={imageUrl} alt={`Image ${index + 1}`} className='w-full h-auto' />
                   </div>

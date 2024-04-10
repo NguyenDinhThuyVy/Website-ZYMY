@@ -34,7 +34,7 @@ export default function Cart() {
   })
   const buyProductsMutation = useMutation({
     mutationFn: purchaseApi.buyProducts,
-    onSuccess: (data: any) => {
+    onSuccess: (data) => {
       setDataAddress(data.data.data)
     }
   })
@@ -135,7 +135,6 @@ export default function Cart() {
   }
 
   const handleBuyPurchases = () => {
-    console.log('dataAddress', dataAddress)
     if (checkedPurchases.length > 0) {
       setIsModalVisible(true)
       const body = checkedPurchases.map((purchase) => ({
@@ -174,7 +173,7 @@ export default function Cart() {
                       <div className='flex flex-shrink-0 items-center justify-center pr-3'>
                         <input
                           type='checkbox'
-                          className='h-5 w-5 accent-[#1CA7EC]'
+                          className='h-5 w-5 accent-rose-400'
                           checked={isAllChecked}
                           onChange={handleCheckAll}
                         />
@@ -203,7 +202,7 @@ export default function Cart() {
                             <div className='flex flex-shrink-0 items-center justify-center pr-3'>
                               <input
                                 type='checkbox'
-                                className='h-5 w-5 accent-[#1CA7EC]'
+                                className='h-5 w-5 accent-rose-400'
                                 checked={purchase.checked}
                                 onChange={handleCheck(index)}
                               />
@@ -265,14 +264,14 @@ export default function Cart() {
                               />
                             </div>
                             <div className='col-span-1'>
-                              <span className='text-[#1CA7EC]'>
+                              <span className='text-rose-400'>
                                 ₫{formatCurrency(purchase.product.price * purchase.buy_count)}
                               </span>
                             </div>
                             <div className='col-span-1'>
                               <button
                                 onClick={handleDelete(index)}
-                                className='bg-none text-black transition-colors hover:text-[#1CA7EC]'
+                                className='bg-none text-black transition-colors hover:text-rose-400'
                               >
                                 {t('delete')}
                               </button>
@@ -290,7 +289,7 @@ export default function Cart() {
                 <div className='flex flex-shrink-0 items-center justify-center pr-3'>
                   <input
                     type='checkbox'
-                    className='h-5 w-5 accent-[#1CA7EC]'
+                    className='h-5 w-5 accent-rose-400'
                     checked={isAllChecked}
                     onChange={handleCheckAll}
                   />
@@ -310,15 +309,15 @@ export default function Cart() {
                       {' '}
                       {t('payment')} ({checkedPurchasesCount} {t('products')}):
                     </div>
-                    <div className='ml-2 text-2xl text-[#1CA7EC]'>₫{formatCurrency(totalCheckedPurchasePrice)}</div>
+                    <div className='ml-2 text-2xl text-rose-400'>₫{formatCurrency(totalCheckedPurchasePrice)}</div>
                   </div>
                   <div className='flex items-center text-sm sm:justify-end'>
                     <div className='text-gray-500'> {t('save')}</div>
-                    <div className='ml-6 text-[#1CA7EC]'>₫{formatCurrency(totalCheckedPurchaseSavingPrice)}</div>
+                    <div className='ml-6 text-rose-400'>₫{formatCurrency(totalCheckedPurchaseSavingPrice)}</div>
                   </div>
                 </div>
                 <Button
-                  className='mt-5 flex h-10 w-52 items-center justify-center  bg-gradient-to-b from-[#4ADEDE] to-[#1CA7EC] text-white  text-sm uppercase  hover:opacity-90 sm:ml-4 sm:mt-0'
+                  className='mt-5 flex h-10 w-52 items-center justify-center  bg-gradient-to-b from-yellow to-rose-400 text-white  text-sm uppercase  hover:opacity-90 sm:ml-4 sm:mt-0'
                   onClick={handleBuyPurchases}
                   disabled={buyProductsMutation.isLoading}
                 >

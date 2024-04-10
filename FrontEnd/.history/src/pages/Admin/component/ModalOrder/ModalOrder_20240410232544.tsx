@@ -19,7 +19,7 @@ const ModalOrder: React.FC<Props> = ({ orderdata, visible, onClose, orderId }) =
   }
 
   // Tạo đường dẫn hình ảnh
-  const imageUrl = 'https://api-ecom.duthanhduoc.com/' + orderDetail.product.image
+  const imageUrl = 'http://localhost:4000/images/' + orderDetail.product.image
 
   return (
     <Modal title={`Chi tiết đơn hàng: `} open={visible} onCancel={onClose} footer={null} width={1100}>

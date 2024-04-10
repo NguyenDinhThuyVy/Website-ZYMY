@@ -30,7 +30,6 @@ export default function Payment() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log(purchasesInCartData)
 
     const checkedPurchaseIdsString = localStorage.getItem('checkedPurchaseIds')
 
@@ -47,13 +46,6 @@ export default function Payment() {
       for (const checkedPurchaseId of checkedPurchaseIds) {
         const response = await purchaseApi.shippingAddress(checkedPurchaseId, address)
         // Xử lý response ở đây nếu cần
-        if (response.status === 200) {
-          // Xử lý thành công, ví dụ: cập nhật giao dịch
-          // console.log('Shipping address updated successfully')
-        } else {
-          // Xử lý thất bại, ví dụ: hiển thị thông báo lỗi
-          // console.error('Shipping address update failed')
-        }
       }
 
       toast.success('Thanh toán thành công', {
